@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
+import { theme } from "../theme";
+
 export default function TextField({ label, value, onChangeText, placeholder, secureTextEntry, autoCapitalize, keyboardType }) {
     return (
         <View style={styles.wrap}>
@@ -13,7 +15,7 @@ export default function TextField({ label, value, onChangeText, placeholder, sec
                 autoCapitalize={autoCapitalize}
                 keyboardType={keyboardType}
                 style={styles.input}
-                placeholderTextColor="#6B7280"
+                placeholderTextColor={theme.colors.muted}
             />
         </View>
     );
@@ -26,19 +28,19 @@ const styles = StyleSheet.create({
     },
     label: {
         marginBottom: 6,
-        color: "#111827",
+        color: theme.colors.text,
         fontSize: 14,
         fontWeight: "600",
     },
     input: {
         width: "100%",
         borderWidth: 1,
-        borderColor: "#E5E7EB",
+        borderColor: theme.colors.border,
         borderRadius: 10,
         paddingHorizontal: 12,
         paddingVertical: 10,
         fontSize: 16,
-        color: "#111827",
-        backgroundColor: "#FFFFFF",
+        color: theme.colors.text,
+        backgroundColor: theme.colors.inputBg,
     },
 });

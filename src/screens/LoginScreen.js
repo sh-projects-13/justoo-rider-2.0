@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import PrimaryButton from "../components/PrimaryButton";
 import TextField from "../components/TextField";
 import { useAuth } from "../auth/AuthContext";
+import { theme } from "../theme";
 
 export default function LoginScreen() {
     const { login } = useAuth();
@@ -75,7 +76,7 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-    safe: { flex: 1, backgroundColor: "#FFFFFF" },
+    safe: { flex: 1, backgroundColor: theme.colors.bg },
     container: {
         flex: 1,
         paddingHorizontal: 20,
@@ -84,15 +85,18 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 28,
         fontWeight: "800",
-        color: "#111827",
+        color: "#FFFFFF",
     },
     subtitle: {
         marginTop: 6,
         fontSize: 14,
-        color: "#6B7280",
+        color: "#CBD5E1",
     },
     form: {
         marginTop: 24,
+        backgroundColor: "#FFFFFF",
+        borderRadius: 16,
+        padding: 16,
     },
     loading: {
         marginTop: 12,
@@ -101,6 +105,6 @@ const styles = StyleSheet.create({
     hint: {
         marginTop: 14,
         fontSize: 12,
-        color: "#6B7280",
+        color: theme.colors.muted,
     },
 });

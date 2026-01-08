@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import PrimaryButton from "../components/PrimaryButton";
 import { useAuth } from "../auth/AuthContext";
 import OrdersScreen from "./OrdersScreen";
+import { theme } from "../theme";
 
 export default function HomeScreen() {
     const { rider, logout } = useAuth();
@@ -50,7 +51,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-    safe: { flex: 1, backgroundColor: "#FFFFFF" },
+    safe: { flex: 1, backgroundColor: theme.colors.bg },
     container: {
         flex: 1,
         paddingHorizontal: 20,
@@ -71,19 +72,20 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 28,
         fontWeight: "800",
-        color: "#111827",
+        color: "#FFFFFF",
     },
     subtitle: {
         marginTop: 6,
         fontSize: 14,
-        color: "#6B7280",
+        color: "#CBD5E1",
     },
     card: {
         marginTop: 20,
         borderWidth: 1,
-        borderColor: "#E5E7EB",
+        borderColor: "rgba(255,255,255,0.10)",
         borderRadius: 12,
         padding: 14,
+        backgroundColor: "rgba(255,255,255,0.08)",
     },
     ordersWrap: {
         flex: 1,
@@ -92,13 +94,13 @@ const styles = StyleSheet.create({
     label: {
         marginTop: 10,
         fontSize: 12,
-        color: "#6B7280",
+        color: "#CBD5E1",
         fontWeight: "700",
     },
     value: {
         marginTop: 2,
         fontSize: 16,
-        color: "#111827",
+        color: "#FFFFFF",
         fontWeight: "600",
     },
 });

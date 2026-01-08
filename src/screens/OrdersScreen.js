@@ -12,6 +12,7 @@ import {
     markOutForDelivery,
     toApiErrorMessage,
 } from "../api/orders";
+import { theme } from "../theme";
 
 export default function OrdersScreen({ embedded = false } = {}) {
     const { authedRequest } = useAuth();
@@ -121,6 +122,7 @@ export default function OrdersScreen({ embedded = false } = {}) {
             <OrderCard
                 key={`active:${String(id)}`}
                 order={order}
+                showImage
                 disabled={!!disabled}
                 primaryAction={
                     canDelivered
@@ -208,8 +210,8 @@ export default function OrdersScreen({ embedded = false } = {}) {
 }
 
 const styles = StyleSheet.create({
-    safe: { flex: 1, backgroundColor: "#FFFFFF" },
-    embeddedWrap: { flex: 1, backgroundColor: "#FFFFFF" },
+    safe: { flex: 1, backgroundColor: theme.colors.bg },
+    embeddedWrap: { flex: 1, backgroundColor: "transparent" },
     container: {
         flex: 1,
         paddingHorizontal: 20,
@@ -223,7 +225,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 28,
         fontWeight: "800",
-        color: "#111827",
+        color: "#FFFFFF",
     },
     section: {
         marginTop: 18,
@@ -231,13 +233,13 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 14,
         fontWeight: "800",
-        color: "#111827",
+        color: "#FFFFFF",
         marginBottom: 10,
     },
     helper: {
         marginTop: 8,
         fontSize: 12,
-        color: "#6B7280",
+        color: "#CBD5E1",
     },
     center: {
         alignItems: "center",

@@ -1,6 +1,8 @@
 import React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 
+import { theme } from "../theme";
+
 export default function PrimaryButton({ title, onPress, disabled }) {
     return (
         <Pressable
@@ -22,7 +24,7 @@ const styles = StyleSheet.create({
         width: "100%",
         paddingVertical: 12,
         borderRadius: 10,
-        backgroundColor: "#111827",
+        backgroundColor: theme.colors.primary,
         alignItems: "center",
     },
     btnPressed: {
