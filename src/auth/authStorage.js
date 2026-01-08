@@ -1,7 +1,9 @@
 import * as SecureStore from "expo-secure-store";
 
-const TOKEN_KEY = "justoo:rider:token";
-const RIDER_KEY = "justoo:rider:profile";
+// NOTE: SecureStore on Android restricts key characters.
+// Only alphanumeric plus '.', '-', '_' are allowed.
+const TOKEN_KEY = "justoo_rider_token";
+const RIDER_KEY = "justoo_rider_profile";
 
 export async function getStoredToken() {
     return SecureStore.getItemAsync(TOKEN_KEY);

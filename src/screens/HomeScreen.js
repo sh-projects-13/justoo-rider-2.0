@@ -1,5 +1,6 @@
 import React from "react";
-import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import PrimaryButton from "../components/PrimaryButton";
 import { useAuth } from "../auth/AuthContext";

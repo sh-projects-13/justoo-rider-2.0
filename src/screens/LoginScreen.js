@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { ActivityIndicator, Alert, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import PrimaryButton from "../components/PrimaryButton";
 import TextField from "../components/TextField";
