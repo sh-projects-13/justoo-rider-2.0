@@ -19,12 +19,9 @@ export default function OrderCard({
 }) {
     const st = statusStyle(order?.status);
 
-    const itemImageUrl = (() => {
-        const items = order?.items;
-        if (!Array.isArray(items) || items.length === 0) return null;
-        const withImg = items.find((it) => it?.productImgUrl);
-        return withImg?.productImgUrl ? String(withImg.productImgUrl) : null;
-    })();
+    const items = Array.isArray(order?.items) ? order.items : [];
+
+    const detailed = !!showImage; // used only for accepted/active cards
 
     return (
         <View style={styles.card}>
@@ -38,32 +35,59 @@ export default function OrderCard({
                 </View>
             </View>
 
-            {showImage && itemImageUrl ? (
-                <Image
-                    source={{ uri: itemImageUrl }}
-                    style={styles.image}
-                    resizeMode="cover"
-                />
+            {detailed && items.length > 0 ? (
+                <View style={styles.itemsWrap}>
+                    {items.map((it, idx) => {
+                        const img = it?.productImgUrl ? String(it.productImgUrl) : null;
+                        const name = String(it?.productName || "Item");
+                        const qty = it?.quantity ?? 0;
+                        const unitPrice = it?.unitPrice;
+
+                        return (
+                            <View key={`${name}:${idx}`} style={styles.itemRow}>
+                                {img ? (
+                                    <Image
+                                        source={{ uri: img }}
+                                        style={styles.itemImg}
+                                        resizeMode="cover"
+                                    />
+                                ) : (
+                                    <View style={styles.itemImgPlaceholder} />
+                                )}
+
+                                <View style={styles.itemMeta}>
+                                    <Text style={styles.itemName} numberOfLines={2}>
+                                        {name}
+                                    </Text>
+                                    <Text style={styles.itemSub}>
+                                        Qty: {String(qty)}  •  Unit: {money(unitPrice)}
+                                    </Text>
+                                </View>
+                            </View>
+                        );
+                    })}
+                </View>
             ) : null}
 
             <View style={styles.section}>
-                <Text style={styles.label}>Total</Text>
-                <Text style={styles.value}>{money(order?.totalAmount)}</Text>
+                {order?.customerName ? (
+                    <>
+                        <Text style={styles.label}>Customer</Text>
+                        <Text style={styles.value}>{String(order.customerName)}</Text>
+                    </>
+                ) : null}
 
-                <Text style={styles.label}>Subtotal</Text>
-                <Text style={styles.value}>{money(order?.subtotalAmount)}</Text>
-
-                <Text style={styles.label}>Delivery fee</Text>
-                <Text style={styles.value}>{money(order?.deliveryFee)}</Text>
-            </View>
-
-            <View style={styles.section}>
                 <Text style={styles.label}>Address</Text>
                 <Text style={styles.value}>
                     {order?.addressLabel ? `${order.addressLabel} — ` : ""}
                     {order?.addressLine1 || ""}
                     {order?.addressLine2 ? `, ${order.addressLine2}` : ""}
                 </Text>
+            </View>
+
+            <View style={styles.totalRow}>
+                <Text style={styles.totalLabel}>Total</Text>
+                <Text style={styles.totalValue}>{money(order?.totalAmount)}</Text>
             </View>
 
             {(primaryAction || secondaryAction) ? (
@@ -131,12 +155,45 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: "900",
     },
-    image: {
+    itemsWrap: {
         marginTop: 12,
-        width: "100%",
-        height: 140,
+        gap: 10,
+    },
+    itemRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 12,
+        padding: 10,
+        borderRadius: 12,
+        backgroundColor: "#F8FAFC",
+        borderWidth: 1,
+        borderColor: theme.colors.border,
+    },
+    itemImg: {
+        width: 52,
+        height: 52,
         borderRadius: 12,
         backgroundColor: theme.colors.primarySoft,
+    },
+    itemImgPlaceholder: {
+        width: 52,
+        height: 52,
+        borderRadius: 12,
+        backgroundColor: theme.colors.primarySoft,
+    },
+    itemMeta: {
+        flex: 1,
+    },
+    itemName: {
+        fontSize: 14,
+        fontWeight: "800",
+        color: theme.colors.text,
+    },
+    itemSub: {
+        marginTop: 4,
+        fontSize: 12,
+        fontWeight: "700",
+        color: theme.colors.muted,
     },
     section: {
         marginTop: 10,
@@ -152,6 +209,28 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: theme.colors.text,
         fontWeight: "600",
+    },
+    totalRow: {
+        marginTop: 14,
+        paddingTop: 12,
+        borderTopWidth: 1,
+        borderTopColor: theme.colors.border,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 10,
+    },
+    totalLabel: {
+        fontSize: 13,
+        fontWeight: "900",
+        color: theme.colors.muted,
+        textTransform: "uppercase",
+        letterSpacing: 0.5,
+    },
+    totalValue: {
+        fontSize: 18,
+        fontWeight: "900",
+        color: theme.colors.text,
     },
     actions: {
         marginTop: 14,
@@ -180,7 +259,7 @@ const styles = StyleSheet.create({
         borderColor: theme.colors.border,
     },
     secondaryText: {
-        color: "#111827",
+        color: theme.colors.text,
         fontSize: 14,
         fontWeight: "700",
     },

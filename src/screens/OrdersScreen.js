@@ -114,6 +114,7 @@ export default function OrdersScreen({ embedded = false } = {}) {
         const id = order?.id;
         const disabled = busyOrderId && busyOrderId !== id;
         const status = order?.status;
+        // console.log(order);
 
         const canOutForDelivery = status === "ASSIGNED_RIDER";
         const canDelivered = status === "OUT_FOR_DELIVERY";
